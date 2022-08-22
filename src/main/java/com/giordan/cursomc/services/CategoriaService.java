@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.giordan.cursomc.domain.Categoria;
 import com.giordan.cursomc.repositories.CategoriaRepository;
+import com.giordan.cursomc.services.exceptions.ObjectNotFoundException;
 
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class CategoriaService {
 	
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
 }
